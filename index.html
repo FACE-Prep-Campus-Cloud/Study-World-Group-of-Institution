@@ -365,7 +365,7 @@ const CLASS_CONFIG = {
 const AUTO_REFRESH_SEC = 120;
 
 function buildUrls(sheetId, sheetName) {
-  const base = `https://docs.google.com/spreadsheets/d/19PnTCmWH9yuzM-0Di8RgRcoj34l1oQUFG5SPyB6uV2k/edit?gid=0#gid=0`;
+  const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&cachebust=${Date.now()}`;
   return [
     base,
     `https://api.allorigins.win/raw?url=${encodeURIComponent(base)}`,
