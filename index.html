@@ -373,29 +373,29 @@ function buildUrls(sheetId, sheetName) {
   ];
 }
 
-// ── STATIC FALLBACK ───────────────────────────────────────────────────
+// ── STATIC FALLBACK (Updated with current data) ──────────────────────
 const STATIC_DATA = {
   BCA_I: [
-    {sno:1,  name:"Abhinav M V",        easy:0, medium:0, hard:0, globalRank:0},
-    {sno:2,  name:"Akash K",            easy:0, medium:0, hard:0, globalRank:0},
-    {sno:3,  name:"Amil Mohammed P M",  easy:0, medium:0, hard:0, globalRank:0},
-    {sno:4,  name:"Anusree K M",        easy:0, medium:0, hard:0, globalRank:0},
-    {sno:5,  name:"Ashish Ram S",       easy:0, medium:0, hard:0, globalRank:0},
-    {sno:6,  name:"Ayilya S",           easy:0, medium:0, hard:0, globalRank:0},
-    {sno:7,  name:"Daniel Biju",        easy:0, medium:0, hard:0, globalRank:0},
-    {sno:8,  name:"Gokul E",            easy:0, medium:0, hard:0, globalRank:0},
-    {sno:10, name:"Joviya C S",         easy:0, medium:0, hard:0, globalRank:0},
-    {sno:11, name:"Mohamed Tharick P",  easy:0, medium:0, hard:0, globalRank:0},
-    {sno:12, name:"Muhammed Bilal",     easy:0, medium:0, hard:0, globalRank:0},
-    {sno:13, name:"Nithesh Kumar J",    easy:0, medium:0, hard:0, globalRank:0},
-    {sno:14, name:"Nithin K",           easy:0, medium:0, hard:0, globalRank:0},
-    {sno:15, name:"Pradheep V",         easy:0, medium:0, hard:0, globalRank:0},
-    {sno:16, name:"Punitha A",          easy:0, medium:0, hard:0, globalRank:0},
-    {sno:17, name:"Rishika S",          easy:0, medium:0, hard:0, globalRank:0},
-    {sno:18, name:"Shibila Sherin",     easy:0, medium:0, hard:0, globalRank:0},
-    {sno:19, name:"Sreejith K S",       easy:0, medium:0, hard:0, globalRank:0},
-    {sno:20, name:"Surya Kumar",        easy:0, medium:0, hard:0, globalRank:0},
-    {sno:21, name:"Vinayak",            easy:0, medium:0, hard:0, globalRank:0},
+    {sno:1,  name:"ABHINAV M V",        easy:4, medium:1, hard:0, globalRank:5000001},
+    {sno:2,  name:"AKASH K",            easy:0, medium:0, hard:0, globalRank:5000001},
+    {sno:3,  name:"AMIL MOHAMMED PM",   easy:0, medium:0, hard:0, globalRank:5000001},
+    {sno:4,  name:"ANUSREE K M",        easy:3, medium:0, hard:0, globalRank:5000001},
+    {sno:5,  name:"ASHISH RAM S",       easy:3, medium:0, hard:0, globalRank:5000001},
+    {sno:6,  name:"AYILYA S",           easy:4, medium:1, hard:0, globalRank:5000001},
+    {sno:7,  name:"DANIEL BIJU",        easy:4, medium:1, hard:0, globalRank:5000001},
+    {sno:8,  name:"GOKUL E",            easy:0, medium:0, hard:0, globalRank:5000001},
+    {sno:10, name:"JOVIYA CS",          easy:0, medium:0, hard:0, globalRank:5000001},
+    {sno:11, name:"MOHAMED THARICK P",  easy:5, medium:1, hard:0, globalRank:5000001},
+    {sno:12, name:"MUHAMMED BILAL",     easy:1, medium:1, hard:0, globalRank:5000001},
+    {sno:13, name:"NITHESH KUMAR J",    easy:0, medium:0, hard:0, globalRank:5000001},
+    {sno:14, name:"NITHIN K",           easy:4, medium:0, hard:0, globalRank:5000001},
+    {sno:15, name:"PRADHEEP V",         easy:0, medium:0, hard:0, globalRank:5000001},
+    {sno:16, name:"PUNITHA A",          easy:0, medium:0, hard:0, globalRank:5000001},
+    {sno:17, name:"RISHIKA S",          easy:0, medium:0, hard:0, globalRank:5000001},
+    {sno:18, name:"SHIBILA SHERIN",     easy:0, medium:0, hard:0, globalRank:5000001},
+    {sno:19, name:"SREEJITH K S",       easy:3, medium:0, hard:0, globalRank:5000001},
+    {sno:20, name:"SURYA KUMAR",        easy:0, medium:0, hard:0, globalRank:5000001},
+    {sno:21, name:"VINAYAK",            easy:4, medium:3, hard:0, globalRank:5000001},
   ]
 };
 
@@ -604,7 +604,7 @@ function renderMetrics() {
     {label:"Medium", value:M, sub:`${pct(M,T||1)}% of total`, cls:"medium"},
     {label:"Hard",   value:H, sub:`${pct(H,T||1)}% of total`, cls:"hard"}
   ].map(card).join('');
-  const ranked = data.filter(d => d.globalRank > 0);
+  const ranked = data.filter(d => d.globalRank > 0 && d.globalRank < 5000000);
   const bestRank = ranked.length > 0 ? Math.min(...ranked.map(d => d.globalRank)) : 0;
   const bestStudent = ranked.length > 0 ? ranked.find(d => d.globalRank === bestRank) : null;
   document.getElementById('metricsRanking').innerHTML = [
@@ -738,7 +738,7 @@ function renderTable() {
   document.getElementById('tableBody').innerHTML = page.map((s,i) => {
     const pct = maxTotal>0?(s.total/maxTotal)*100:0;
     const isTop = s.rank<=3 && s.total>0;
-    const rankDisplay = s.globalRank > 0
+    const rankDisplay = s.globalRank > 0 && s.globalRank < 5000000
       ? `<span class="badge badge-rank">#${s.globalRank.toLocaleString('en-IN')}</span>`
       : `<span class="badge badge-zero">—</span>`;
     return `<tr class="${s.total===0?'no-attempt':''}">
@@ -796,7 +796,7 @@ function downloadPDF() {
   const all=[...data].sort((a,b)=>(a.rank||999)-(b.rank||999));
   tbody.innerHTML=all.map((s,i)=>{
     const pct=maxTotal>0?(s.total/maxTotal)*100:0, isTop=s.rank<=3&&s.total>0;
-    const rankDisplay=s.globalRank>0
+    const rankDisplay=s.globalRank>0 && s.globalRank < 5000000
       ?`<span class="badge badge-rank">#${s.globalRank.toLocaleString('en-IN')}</span>`
       :`<span class="badge badge-zero">—</span>`;
     return `<tr class="${s.total===0?'no-attempt':''}">
